@@ -1,2 +1,9 @@
+# Ignore the large AI weights file
 mini_code_gpt.pth
 
+# Ignore the downloaded raw dataset file
+dataset.txt
+
+# Ignore local Python cache files
+__pycache__/
+*.pyc
