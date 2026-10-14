@@ -6,9 +6,9 @@ import tiktoken
 # Hyperparameters (Must match your Colab training exactly)
 block_size = 64
 device = 'cpu' 
-n_embd = 1000
-n_head = 6
-n_layer = 6
+n_embd = 128
+n_head = 4
+n_layer = 4
 
 # Dataset configuration & Tokenizer (Using GPT-2 vocabulary)
 text = """
@@ -42,7 +42,7 @@ class Head(nn.Module):
     def forward(self, x):
         B,T,C = x.shape
         k = self.key(x); q = self.query(x)
-        wei = q @ k.transpose(-2,-1) * k.shape[-1]**-0.5
+        wei = q @ k.transpose(-2,-1) * x.shape[-1]**-0.5
         wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf'))
         wei = F.softmax(wei, dim=-1)
         return wei @ self.value(x)
